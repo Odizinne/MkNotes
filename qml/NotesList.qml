@@ -16,65 +16,53 @@ Pane {
 
     ColumnLayout {
         anchors.fill: parent
-        spacing: 0
+        spacing: 6
 
-        // Add search field at the top
-        TextField {
-            id: searchField
-            Layout.fillWidth: true
-            Layout.margins: 5
-            placeholderText: qsTr("Filter notes...")
-            selectByMouse: true
-            font.pixelSize: 14
-            onTextChanged: {
-                notesList.filterNotesList(text)
-            }
-
-            // Clear button for the search field
-            IconImage {
-                visible: searchField.text.length > 0
-                anchors.right: parent.right
-                anchors.rightMargin: 10
-                anchors.verticalCenter: parent.verticalCenter
-                source: "qrc:/icons/delete.png"
-                sourceSize: Qt.size(16, 16)
-                color: Constants.foregroundColor
-
-                MouseArea {
-                    anchors.fill: parent
-                    anchors.margins: -5
-                    onClicked: searchField.text = ""
-                }
-            }
-        }
-
-        ItemDelegate {
-            Layout.fillWidth: true
-            Layout.preferredHeight: 50
-            highlighted: false
-
-            contentItem: RowLayout {
-                spacing: 10
-
+        RowLayout {
+            Button {
+                id: newButton
+                Layout.leftMargin: 4
+                Layout.preferredWidth: height
+                Layout.preferredHeight: implicitHeight - 2
+                onClicked: notesList.addNoteRequested()
                 IconImage {
-                    Layout.rightMargin: 0
+                    anchors.fill: parent
                     source: "qrc:/icons/plus.png"
-                    sourceSize: Qt.size(14, 14)
                     color: Constants.foregroundColor
-                }
-
-                Label {
-                    text: qsTr("New Note")
-                    Layout.fillWidth: true
-                    font.pixelSize: 14
+                    sourceSize: Qt.size(14, 14)
                 }
             }
 
-            onClicked: {
-                notesList.addNoteRequested()
+            TextField {
+                id: searchField
+                Layout.fillWidth: true
+                Layout.margins: 5
+                placeholderText: qsTr("Filter notes...")
+                selectByMouse: true
+                font.pixelSize: 14
+                enabled: notesList.notesModel && notesList.notesModel.count !== 0
+                onTextChanged: {
+                    notesList.filterNotesList(text)
+                }
+
+                // Clear button for the search field
+                IconImage {
+                    visible: searchField.text.length > 0
+                    anchors.right: parent.right
+                    anchors.rightMargin: 10
+                    anchors.verticalCenter: parent.verticalCenter
+                    source: "qrc:/icons/delete.png"
+                    sourceSize: Qt.size(16, 16)
+                    color: Constants.foregroundColor
+
+                    MouseArea {
+                        anchors.fill: parent
+                        anchors.margins: -5
+                        onClicked: searchField.text = ""
+                    }
+                }
             }
         }
-
         ListView {
             id: notesListView
             Layout.fillWidth: true
@@ -167,6 +155,8 @@ Pane {
 
         Button {
             id: editButton
+            Layout.leftMargin: 4
+            Layout.rightMargin: 4
             text: qsTr("Edit mode")
             icon.source: "qrc:/icons/edit.png"
             icon.color: Constants.foregroundColor

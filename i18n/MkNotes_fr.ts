@@ -14,36 +14,31 @@
     <message>
         <location filename="../qml/NoteEditor.qml" line="28"/>
         <location filename="../qml/NoteEditor.qml" line="30"/>
-        <location filename="../qml/NoteEditor.qml" line="101"/>
+        <location filename="../qml/NoteEditor.qml" line="86"/>
         <source>Untitled</source>
-        <translation>Sans titre</translation>
+        <translation type="unfinished">Sans titre</translation>
     </message>
     <message>
-        <location filename="../qml/NoteEditor.qml" line="132"/>
+        <location filename="../qml/NoteEditor.qml" line="99"/>
         <source>Create a note to get started</source>
-        <translation>Créez une nouvelle note pour commencer</translation>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
     <name>NotesList</name>
     <message>
-        <location filename="../qml/NotesList.qml" line="26"/>
+        <location filename="../qml/NotesList.qml" line="40"/>
         <source>Filter notes...</source>
         <translation>Filtrer...</translation>
     </message>
     <message>
-        <location filename="../qml/NotesList.qml" line="67"/>
-        <source>New Note</source>
-        <translation>Nouvelle note</translation>
-    </message>
-    <message>
-        <location filename="../qml/NotesList.qml" line="111"/>
-        <location filename="../qml/NotesList.qml" line="189"/>
+        <location filename="../qml/NotesList.qml" line="99"/>
+        <location filename="../qml/NotesList.qml" line="179"/>
         <source>Untitled</source>
         <translation>Sans titre</translation>
     </message>
     <message>
-        <location filename="../qml/NotesList.qml" line="170"/>
+        <location filename="../qml/NotesList.qml" line="160"/>
         <source>Edit mode</source>
         <translation>Mode édition</translation>
     </message>

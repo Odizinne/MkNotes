@@ -48,7 +48,6 @@ QString NotesManager::saveNote(const QString& id, const QString& title, const QS
 
     // Get file path
     QString filePath = getNotesDirectory() + "/" + id + ".json";
-    qDebug() << getNotesDirectory();
 
     // Write to file
     QFile file(filePath);
