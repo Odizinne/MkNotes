@@ -7,7 +7,7 @@ Pane {
     id: editorPane
 
     property int currentIndex: -1
-    property bool editMode: editButton.checked
+    property bool editEnabled: Context.editMode
     property var notesModel: null
 
     signal deleteRequested(int index)
@@ -25,10 +25,9 @@ Pane {
 
             const firstLine = textArea.text.split('\n')[0] || ""
             const cleanTitle = firstLine.replace(/^#+\s*|[*_~`]/g, "")
-            notesModel.setProperty(currentIndex, "title", cleanTitle || "Untitled Note")
+            notesModel.setProperty(currentIndex, "title", cleanTitle || qsTr("Untitled"))
 
-            NotesManager.saveNote(note.id, cleanTitle || "Untitled Note", textArea.text, note.created)
-            console.log("Note saved: " + cleanTitle)
+            NotesManager.saveNote(note.id, cleanTitle || qsTr("Untitled"), textArea.text, note.created)
         }
     }
 
@@ -42,67 +41,55 @@ Pane {
         anchors.fill: parent
         spacing: 10
 
-        ToolBar {
+        Item {
             Layout.fillWidth: true
+            Layout.fillHeight: true
+            TempScrollBar {
+                id: fluentVerticalScrollBar
+                enabled: scrollView.enabled
+                opacity: scrollView.opacity
+                orientation: Qt.Vertical
+                anchors.right: scrollView.right
+                anchors.top: scrollView.top
+                anchors.bottom: scrollView.bottom
+                visible: policy === ScrollBar.AlwaysOn
+                active: true
+                policy: (scrollView.contentHeight > scrollView.height) ? ScrollBar.AlwaysOn : ScrollBar.AlwaysOff
+            }
 
-            RowLayout {
+            ScrollView {
+                id: scrollView
                 anchors.fill: parent
+                visible: editorPane.currentIndex >= 0
+                ScrollBar.vertical: fluentVerticalScrollBar
+                ScrollBar.horizontal.policy: ScrollBar.AlwaysOff
+                TextArea {
+                    id: textArea
+                    wrapMode: TextEdit.Wrap
+                    width: parent.width
+                    horizontalAlignment: Text.AlignLeft
+                    verticalAlignment: Text.AlignTop
 
-                Button {
-                    id: editButton
-                    text: checked ? "View Mode" : "Edit Mode"
-                    checkable: true
-                    checked: true
-                }
+                    textFormat: editorPane.editEnabled ? TextEdit.PlainText : TextEdit.MarkdownText
+                    readOnly: !editorPane.editEnabled
 
-                Button {
-                    text: "Delete"
-                    visible: currentIndex >= 0
+                    onTextChanged: {
+                        if (editorPane.editEnabled && editorPane.currentIndex >= 0 && editorPane.notesModel) {
+                            const firstLine = text.split('\n')[0] || ""
+                            const cleanTitle = firstLine.replace(/^#+\s*|[*_~`]/g, "")
+                            notesModel.setProperty(currentIndex, "title", cleanTitle || qsTr("Untitled"))
 
-                    onClicked: function() {
-                        if (currentIndex >= 0) {
-                            deleteRequested(currentIndex)
+                            saveCurrentNote()
                         }
                     }
                 }
-
-                Item { Layout.fillWidth: true }
             }
         }
-
-        // Main text area
-        ScrollView {
-            Layout.fillWidth: true
-            Layout.fillHeight: true
-            visible: currentIndex >= 0
-
-            TextArea {
-                id: textArea
-                wrapMode: TextEdit.Wrap
-                width: parent.width
-                horizontalAlignment: Text.AlignLeft
-                verticalAlignment: Text.AlignTop
-
-                textFormat: editMode ? TextEdit.PlainText : TextEdit.MarkdownText
-                readOnly: !editMode
-
-                onTextChanged: {
-                    if (editMode && currentIndex >= 0 && notesModel) {
-                        const firstLine = text.split('\n')[0] || ""
-                        const cleanTitle = firstLine.replace(/^#+\s*|[*_~`]/g, "")
-                        notesModel.setProperty(currentIndex, "title", cleanTitle || "Untitled Note")
-
-                        saveCurrentNote()
-                    }
-                }
-            }
-        }
-
         Label {
             Layout.fillWidth: true
             Layout.fillHeight: true
-            visible: currentIndex < 0
-            text: "Select a note or create a new one"
+            visible: editorPane.currentIndex < 0
+            text: qsTr("Create a note to get started")
             font.pixelSize: 16
             horizontalAlignment: Text.AlignHCenter
             verticalAlignment: Text.AlignVCenter

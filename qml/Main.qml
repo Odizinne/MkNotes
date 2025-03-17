@@ -54,6 +54,28 @@ ApplicationWindow {
             onAddNoteRequested: {
                 notesModel.addNewNote()
                 currentIndex = 0
+
+                // If this is the only note, enable edit mode automatically
+                if (notesModel.count === 1) {
+                    Context.editMode = true
+                }
+            }
+
+            onDeleteNoteRequested: function(index) {
+                if (index >= 0) {
+                    var noteId = notesModel.get(index).id
+
+                    root.notesManager.deleteNote(noteId)
+
+                    notesModel.remove(index)
+
+                    if (notesList.currentIndex >= notesModel.count && notesModel.count > 0) {
+                        notesList.currentIndex = notesModel.count - 1
+                    } else if (notesModel.count === 0) {
+                        notesList.currentIndex = -1
+                        noteEditor.clearText()
+                    }
+                }
             }
         }
 
@@ -73,11 +95,10 @@ ApplicationWindow {
                     if (!root.isClosing) {
                         notesModel.remove(index)
 
-                        if (notesModel.count === 0) {
-                            notesModel.addNewNote()
-                            notesList.currentIndex = 0
-                        } else if (notesList.currentIndex >= notesModel.count) {
+                        if (notesList.currentIndex >= notesModel.count && notesModel.count > 0) {
                             notesList.currentIndex = notesModel.count - 1
+                        } else if (notesModel.count === 0) {
+                            notesList.currentIndex = -1
                         }
                     } else {
                         console.log("Deleted empty note at index: " + index)
@@ -89,16 +110,15 @@ ApplicationWindow {
                 if (index >= 0) {
                     var noteId = notesModel.get(index).id
 
-                    notesManager.deleteNote(noteId)
+                    root.notesManager.deleteNote(noteId)
 
                     notesModel.remove(index)
 
-                    if (notesModel.count === 0) {
-                        notesModel.addNewNote()
-                        notesList.currentIndex = 0
-                        noteEditor.clearText()
-                    } else if (notesList.currentIndex >= notesModel.count) {
+                    if (notesList.currentIndex >= notesModel.count && notesModel.count > 0) {
                         notesList.currentIndex = notesModel.count - 1
+                    } else if (notesModel.count === 0) {
+                        notesList.currentIndex = -1
+                        noteEditor.clearText()
                     }
                 }
             }

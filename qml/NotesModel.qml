@@ -10,7 +10,7 @@ ListModel {
         var noteId = NotesManager.generateNoteId()
         insert(0, {
             id: noteId,
-            title: "Untitled Note",
+            title: qsTr("Untitled"),
             content: "",
             created: new Date()
         })
@@ -30,10 +30,6 @@ ListModel {
                 content: note.content,
                 created: new Date(note.created)
             })
-        }
-
-        if (count === 0) {
-            addNewNote()
         }
 
         loadCompleted()
