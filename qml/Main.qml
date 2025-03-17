@@ -45,9 +45,9 @@ ApplicationWindow {
 
         NotesList {
             id: notesList
-            SplitView.preferredWidth: 200
-            SplitView.minimumWidth: 200
-            SplitView.maximumWidth: 200
+            SplitView.preferredWidth: 225
+            SplitView.minimumWidth: 225
+            SplitView.maximumWidth: 225
 
             notesModel: notesModel
 

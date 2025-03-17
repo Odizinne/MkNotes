@@ -109,7 +109,7 @@ Pane {
                         Layout.column: 0
                         Layout.row: 0
                         text: del.title || qsTr("Untitled")
-                        font.pixelSize: 14
+                        font.pixelSize: 16
                         font.bold: true
                         elide: Text.ElideRight
                         wrapMode: Text.Wrap
@@ -126,7 +126,7 @@ Pane {
                             const date = new Date(del.created)
                             return date.toLocaleDateString()
                         }
-                        font.pixelSize: 10
+                        font.pixelSize: 11
                         opacity: 0.7
                         focusPolicy: Qt.NoFocus
                     }

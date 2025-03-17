@@ -83,6 +83,7 @@ Pane {
 
                     textFormat: editorPane.editEnabled ? TextEdit.PlainText : TextEdit.MarkdownText
                     readOnly: !editorPane.editEnabled
+                    font.pixelSize: 16
 
                     // Add some padding for better readability in markdown view
                     leftPadding: editorPane.editEnabled ? 6 : 10
@@ -117,7 +118,7 @@ Pane {
                                 textArea.plainContent = textArea.text
 
                                 // Format the text for markdown viewing with proper paragraph spacing
-                                textArea.text = formatMarkdownText(textArea.plainContent)
+                                textArea.text = editorPane.formatMarkdownText(textArea.plainContent)
                             }
                         }
                     }
