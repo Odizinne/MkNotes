@@ -14,12 +14,12 @@
     <message>
         <location filename="../qml/NoteEditor.qml" line="28"/>
         <location filename="../qml/NoteEditor.qml" line="30"/>
-        <location filename="../qml/NoteEditor.qml" line="80"/>
+        <location filename="../qml/NoteEditor.qml" line="100"/>
         <source>Untitled</source>
         <translation>Sans titre</translation>
     </message>
     <message>
-        <location filename="../qml/NoteEditor.qml" line="92"/>
+        <location filename="../qml/NoteEditor.qml" line="131"/>
         <source>Create a note to get started</source>
         <translation>Créez une nouvelle note pour commencer</translation>
     </message>
