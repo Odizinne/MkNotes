@@ -7,7 +7,6 @@ find_package(Qt6 REQUIRED COMPONENTS Quick LinguistTools)
 qt_standard_project_setup(REQUIRES 6.8)
 qt_policy(SET QTP0004 NEW)
 
-# Add source files
 qt_add_executable(${CMAKE_PROJECT_NAME}
     src/main.cpp
     src/notesmanager.cpp
@@ -33,7 +32,6 @@ qt_add_qml_module(${CMAKE_PROJECT_NAME}
         qml/NoteEditor.qml
         qml/NotesList.qml
         qml/NotesModel.qml
-        qml/TempScrollBar.qml
         ${QML_SINGLETONS}
 )
 

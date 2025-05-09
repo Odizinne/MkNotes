@@ -1,4 +1,4 @@
-import QtQuick.Controls.FluentWinUI3
+import QtQuick.Controls.Material
 import QtQuick
 import net.odizinne.mknotes
 
@@ -10,6 +10,7 @@ ApplicationWindow {
     minimumHeight: 600
     visible: true
     title: qsTr("Markdown Notes")
+    Material.theme: Material.System
 
     property bool isClosing: false
     property NotesManager notesManager: NotesManager

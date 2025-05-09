@@ -1,6 +1,6 @@
 pragma ComponentBehavior: Bound
 
-import QtQuick.Controls.FluentWinUI3
+import QtQuick.Controls.Material
 import QtQuick
 import QtQuick.Layouts
 import QtQuick.Controls.impl
@@ -152,23 +152,6 @@ Pane {
                 }
             }
         }
-
-        Button {
-            id: editButton
-            Layout.leftMargin: 4
-            Layout.rightMargin: 4
-            text: qsTr("Edit mode")
-            icon.source: "qrc:/icons/edit.png"
-            icon.color: Constants.foregroundColor
-            checkable: true
-            checked: Context.editMode
-            Layout.fillWidth: true
-            enabled: notesList.notesModel && notesList.notesModel.count > 0
-            onCheckedChanged: {
-                Context.editMode = checked
-            }
-            focusPolicy: Qt.NoFocus
-        }
     }
 
     // Filter function to show/hide notes based on search text
@@ -187,14 +170,6 @@ Pane {
     onCurrentIndexChanged: {
         if (notesListView.currentIndex !== currentIndex) {
             notesListView.currentIndex = currentIndex
-        }
-    }
-
-    // Update edit button state when the model changes
-    Connections {
-        target: notesList.notesModel
-        function onCountChanged() {
-            editButton.enabled = notesList.notesModel && notesList.notesModel.count > 0
         }
     }
 }

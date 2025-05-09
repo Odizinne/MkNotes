@@ -14,12 +14,12 @@
     <message>
         <location filename="../qml/NoteEditor.qml" line="28"/>
         <location filename="../qml/NoteEditor.qml" line="30"/>
-        <location filename="../qml/NoteEditor.qml" line="86"/>
+        <location filename="../qml/NoteEditor.qml" line="73"/>
         <source>Untitled</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/NoteEditor.qml" line="99"/>
+        <location filename="../qml/NoteEditor.qml" line="86"/>
         <source>Create a note to get started</source>
         <translation type="unfinished"></translation>
     </message>
@@ -33,13 +33,8 @@
     </message>
     <message>
         <location filename="../qml/NotesList.qml" line="99"/>
-        <location filename="../qml/NotesList.qml" line="179"/>
+        <location filename="../qml/NotesList.qml" line="162"/>
         <source>Untitled</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../qml/NotesList.qml" line="160"/>
-        <source>Edit mode</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

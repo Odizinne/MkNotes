@@ -1,4 +1,4 @@
-import QtQuick.Controls.FluentWinUI3
+import QtQuick.Controls.Material
 import QtQuick
 import QtQuick.Layouts
 import net.odizinne.mknotes
@@ -44,35 +44,22 @@ Pane {
         Item {
             Layout.fillWidth: true
             Layout.fillHeight: true
-            TempScrollBar {
-                id: fluentVerticalScrollBar
-                enabled: scrollView.enabled
-                opacity: scrollView.opacity
-                orientation: Qt.Vertical
-                anchors.right: scrollView.right
-                anchors.top: scrollView.top
-                anchors.bottom: scrollView.bottom
-                visible: policy === ScrollBar.AlwaysOn
-                active: true
-                policy: (scrollView.contentHeight > scrollView.height) ? ScrollBar.AlwaysOn : ScrollBar.AlwaysOff
-            }
 
             ScrollView {
                 id: scrollView
                 anchors.fill: parent
                 visible: editorPane.currentIndex >= 0
-                ScrollBar.vertical: fluentVerticalScrollBar
+                ScrollBar.vertical.policy: ScrollBar.AlwaysOn
                 ScrollBar.horizontal.policy: ScrollBar.AlwaysOff
 
                 TextArea {
                     id: textArea
                     wrapMode: TextEdit.Wrap
-                    width: parent.width
+                    //width: parent.width
                     horizontalAlignment: Text.AlignLeft
                     verticalAlignment: Text.AlignTop
 
-                    textFormat: editorPane.editEnabled ? TextEdit.PlainText : TextEdit.MarkdownText
-                    readOnly: !editorPane.editEnabled
+                    textFormat: TextEdit.PlainText
                     font.pixelSize: 16
 
                     leftPadding: editorPane.editEnabled ? 6 : 10
@@ -83,9 +70,9 @@ Pane {
                         if (editorPane.editEnabled && editorPane.currentIndex >= 0 && editorPane.notesModel) {
                             const firstLine = text.split('\n')[0] || ""
                             const cleanTitle = firstLine.replace(/^#+\s*|[*_~`]/g, "")
-                            notesModel.setProperty(currentIndex, "title", cleanTitle || qsTr("Untitled"))
+                            editorPane.notesModel.setProperty(editorPane.currentIndex, "title", cleanTitle || qsTr("Untitled"))
 
-                            saveCurrentNote()
+                            editorPane.saveCurrentNote()
                         }
                     }
                 }
