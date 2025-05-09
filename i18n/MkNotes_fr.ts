@@ -4,9 +4,9 @@
 <context>
     <name>Main</name>
     <message>
-        <location filename="../qml/Main.qml" line="12"/>
+        <location filename="../qml/Main.qml" line="13"/>
         <source>Markdown Notes</source>
-        <translation></translation>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -14,12 +14,12 @@
     <message>
         <location filename="../qml/NoteEditor.qml" line="28"/>
         <location filename="../qml/NoteEditor.qml" line="30"/>
-        <location filename="../qml/NoteEditor.qml" line="73"/>
+        <location filename="../qml/NoteEditor.qml" line="64"/>
         <source>Untitled</source>
         <translation type="unfinished">Sans titre</translation>
     </message>
     <message>
-        <location filename="../qml/NoteEditor.qml" line="86"/>
+        <location filename="../qml/NoteEditor.qml" line="74"/>
         <source>Create a note to get started</source>
         <translation type="unfinished"></translation>
     </message>
@@ -27,13 +27,13 @@
 <context>
     <name>NotesList</name>
     <message>
-        <location filename="../qml/NotesList.qml" line="40"/>
+        <location filename="../qml/NotesList.qml" line="47"/>
         <source>Filter notes...</source>
         <translation>Filtrer...</translation>
     </message>
     <message>
-        <location filename="../qml/NotesList.qml" line="99"/>
-        <location filename="../qml/NotesList.qml" line="162"/>
+        <location filename="../qml/NotesList.qml" line="117"/>
+        <location filename="../qml/NotesList.qml" line="185"/>
         <source>Untitled</source>
         <translation>Sans titre</translation>
     </message>

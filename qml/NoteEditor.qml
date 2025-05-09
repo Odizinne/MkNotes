@@ -3,7 +3,7 @@ import QtQuick
 import QtQuick.Layouts
 import net.odizinne.mknotes
 
-Pane {
+Item {
     id: editorPane
 
     property int currentIndex: -1
@@ -37,57 +37,44 @@ Pane {
         }
     }
 
-    ColumnLayout {
+    ScrollView {
+        id: scrollView
+        visible: editorPane.currentIndex >= 0
+        clip: true
         anchors.fill: parent
-        spacing: 10
 
-        Item {
-            Layout.fillWidth: true
-            Layout.fillHeight: true
+        // Define the policies directly
+        ScrollBar.vertical.policy: textArea.contentHeight > scrollView.height ? ScrollBar.AlwaysOn : ScrollBar.AlwaysOff
+        ScrollBar.horizontal.policy: ScrollBar.AlwaysOff
+        property bool scrollBarVisible: ScrollBar.vertical.visible
 
-            ScrollView {
-                id: scrollView
-                anchors.fill: parent
-                visible: editorPane.currentIndex >= 0
-                ScrollBar.vertical.policy: ScrollBar.AlwaysOn
-                ScrollBar.horizontal.policy: ScrollBar.AlwaysOff
+        TextArea {
+            topInset: 0
+            Material.containerStyle: Material.Outlined
+            id: textArea
+            width: scrollView.width - (scrollView.scrollBarVisible ? 25 : 0)
+            //height: contentHeight
+            wrapMode: TextEdit.Wrap
+            textFormat: TextEdit.PlainText
+            font.pixelSize: 16
 
-                TextArea {
-                    id: textArea
-                    wrapMode: TextEdit.Wrap
-                    //width: parent.width
-                    horizontalAlignment: Text.AlignLeft
-                    verticalAlignment: Text.AlignTop
-
-                    textFormat: TextEdit.PlainText
-                    font.pixelSize: 16
-
-                    leftPadding: editorPane.editEnabled ? 6 : 10
-                    rightPadding: editorPane.editEnabled ? 6 : 10
-                    topPadding: editorPane.editEnabled ? 6 : 10
-                    bottomPadding: editorPane.editEnabled ? 6 : 10
-                    onTextChanged: {
-                        if (editorPane.editEnabled && editorPane.currentIndex >= 0 && editorPane.notesModel) {
-                            const firstLine = text.split('\n')[0] || ""
-                            const cleanTitle = firstLine.replace(/^#+\s*|[*_~`]/g, "")
-                            editorPane.notesModel.setProperty(editorPane.currentIndex, "title", cleanTitle || qsTr("Untitled"))
-
-                            editorPane.saveCurrentNote()
-                        }
-                    }
-                }
+            onTextChanged: {
+                const firstLine = text.split('\n')[0] || ""
+                const cleanTitle = firstLine.replace(/^#+\s|[_~`]/g, "")
+                editorPane.notesModel.setProperty(editorPane.currentIndex, "title", cleanTitle || qsTr("Untitled"))
+                editorPane.saveCurrentNote()
             }
         }
+    }
 
-        Label {
-            Layout.fillWidth: true
-            Layout.fillHeight: true
-            visible: editorPane.currentIndex < 0
-            text: qsTr("Create a note to get started")
-            font.pixelSize: 16
-            horizontalAlignment: Text.AlignHCenter
-            verticalAlignment: Text.AlignVCenter
-        }
+
+    Label {
+        anchors.centerIn: parent
+        visible: editorPane.currentIndex < 0
+        text: qsTr("Create a note to get started")
+        font.pixelSize: 16
+        horizontalAlignment: Text.AlignHCenter
+        verticalAlignment: Text.AlignVCenter
     }
 
     onCurrentIndexChanged: {

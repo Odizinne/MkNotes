@@ -17,6 +17,7 @@ qt_add_executable(${CMAKE_PROJECT_NAME}
 set(QML_SINGLETONS
     qml/Singletons/Constants.qml
     qml/Singletons/Context.qml
+    qml/Singletons/AppSettings.qml
 )
 
 set_source_files_properties(${QML_SINGLETONS}

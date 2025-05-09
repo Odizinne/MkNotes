@@ -2,7 +2,8 @@
     <qresource prefix="/icons">
         <file>icon.png</file>
         <file>delete.png</file>
-        <file>edit.png</file>
         <file>plus.png</file>
+        <file>sun.png</file>
+        <file>moon.png</file>
     </qresource>
 </RCC>

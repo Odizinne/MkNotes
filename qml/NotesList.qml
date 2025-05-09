@@ -13,18 +13,25 @@ Pane {
 
     signal addNoteRequested()
     signal deleteNoteRequested(int index)
+    Material.background: AppSettings.darkMode ? "#2B2B2B" : "#FFFFFF" // UwU Gab
+    Material.elevation: 6
+    Material.roundedScale: Material.ExtraSmallScale
 
     ColumnLayout {
         anchors.fill: parent
-        spacing: 6
+        spacing: 10
 
         RowLayout {
-            Button {
+            spacing: 10
+            RoundButton {
                 id: newButton
-                Layout.leftMargin: 4
-                Layout.preferredWidth: height
-                Layout.preferredHeight: implicitHeight - 2
                 onClicked: notesList.addNoteRequested()
+                leftInset: 0
+                rightInset: 0
+                topInset: 0
+                bottomInset: 0
+                Layout.preferredHeight: 30
+                Layout.preferredWidth: 30
                 IconImage {
                     anchors.fill: parent
                     source: "qrc:/icons/plus.png"
@@ -36,16 +43,16 @@ Pane {
             TextField {
                 id: searchField
                 Layout.fillWidth: true
-                Layout.margins: 5
+                //Layout.margins: 5
                 placeholderText: qsTr("Filter notes...")
                 selectByMouse: true
                 font.pixelSize: 14
+                Layout.preferredHeight: newButton.height + 5
                 enabled: notesList.notesModel && notesList.notesModel.count !== 0
                 onTextChanged: {
                     notesList.filterNotesList(text)
                 }
 
-                // Clear button for the search field
                 IconImage {
                     visible: searchField.text.length > 0
                     anchors.right: parent.right
@@ -78,12 +85,23 @@ Pane {
                 id: del
                 width: notesListView.width
                 height: visible ? 60 : 0
-                highlighted: ListView.isCurrentItem
                 required property int index
                 required property string title
                 required property var created
                 focusPolicy: Qt.NoFocus
-                visible: true // Will be controlled by the filter function
+                visible: true
+                highlighted: ListView.isCurrentItem
+                //property int shouldHighlight: ListView.isCurrentItem
+
+                Rectangle {
+                    anchors.left: parent.left
+                    color: Material.accent
+                    width: 3
+                    height: parent.height / 2
+                    anchors.verticalCenter: parent.verticalCenter
+                    radius: 8
+                    visible: parent.highlighted
+                }
 
                 contentItem: GridLayout {
                     columns: 2
@@ -120,7 +138,7 @@ Pane {
                     }
 
                     // Delete button (spanning both rows on the right)
-                    Button {
+                    ToolButton {
                         id: deleteButton
                         Layout.preferredWidth: height
                         Layout.column: 1
@@ -134,16 +152,21 @@ Pane {
                                 notesList.deleteNoteRequested(del.index)
                             }
                         }
+                        icon.source: "qrc:/icons/delete.png"
+                        icon.width: 16
+                        icon.height: 16
+                        Layout.rightMargin: -10
+
 
                         focusPolicy: Qt.NoFocus
 
-                        IconImage {
-                            anchors.fill: parent
-                            source: "qrc:/icons/delete.png"
-                            color: Constants.foregroundColor
-                            sourceSize.width: parent.width / 2
-                            sourceSize.height: parent.height / 2
-                        }
+                        //IconImage {
+                        //    anchors.fill: parent
+                        //    source: "qrc:/icons/delete.png"
+                        //    color: Constants.foregroundColor
+                        //    sourceSize.width: parent.width / 2
+                        //    sourceSize.height: parent.height / 2
+                        //}
                     }
                 }
 
